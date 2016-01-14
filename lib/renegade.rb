@@ -1,7 +1,5 @@
-##
-# Renegade module to run commit hooks
+require "renegade/version"
+
 module Renegade
-  def self.hello_world
-    puts 'hello world'
-  end
+  # Your code goes here...
 end

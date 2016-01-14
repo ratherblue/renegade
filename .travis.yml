@@ -1,11 +1,12 @@
 language: ruby
 
 rvm:
-  - 2.1
   - 2.2
 
+cache:
+ - bundler
+
 script:
-  - gem install bundler
   - bundle exec rubocop
 
 notifications:

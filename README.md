@@ -1,5 +1,7 @@
 # Renegade
 
+[![Build Status](https://img.shields.io/travis/ratherblue/renegade.svg?style=flat-square)](https://travis-ci.org/ratherblue/renegade)
+
 @todo
 
 ## Installation

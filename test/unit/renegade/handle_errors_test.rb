@@ -26,4 +26,14 @@ Warnings:
 
 ")
   end
+
+  it 'should print errors' do
+    subject.print_errors(['Error 1', 'Error 2'])
+    $stdout.string.must_equal("
+Errors:
+- Error 1
+- Error 2
+
+")
+  end
 end

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'renegade'
-  s.version = '0.0.7'
+  s.version = '0.0.1'
   s.summary = 'Gem summary'
   s.description = 'Gem description'
   s.authors = ['Rather Blue']

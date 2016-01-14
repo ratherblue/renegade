@@ -17,14 +17,14 @@ module Renegade
     # Report labels
     def self.report(label, passed)
       if passed
-        puts "  √ #{label}".green
+        print "  √ #{label}".green
       else
-        puts "  × #{label}".red
+        print "  × #{label}".red
       end
     end
 
     def self.hook_start(hook)
-      puts "\nRunning #{hook} hooks…"
+      print "\nRunning #{hook} hooks…"
     end
   end
 end

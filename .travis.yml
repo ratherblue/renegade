@@ -1,1 +1,12 @@
 language: ruby
+
+rvm:
+  - 2.1
+  - 2.2
+
+script:
+  - bundle exec rubocop
+
+notifications:
+  on_success: false
+  on_failure: change

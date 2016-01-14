@@ -1,7 +1,9 @@
+require 'renegade/status'
+
 ##
 # Renegade module to run commit hooks
 module Renegade
-  def self.hi
-     puts 'Hello world 0.0.0!'
+  def self.status
+    @status ||= Renegade::Status.new
   end
 end

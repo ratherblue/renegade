@@ -8,6 +8,7 @@ cache:
 
 script:
   - bundle exec rubocop
+  - rake test
 
 notifications:
   on_success: false

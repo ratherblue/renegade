@@ -30,4 +30,14 @@ describe Renegade::BranchName do
     branch_check.check_branch_name('story-1234-description').must_equal(true)
     branch_check.check_branch_name('story-1234 description').must_equal(true)
   end
+
+  it 'should populate warnings' do
+    branch_check = subject.new('Branch Name')
+    branch_check.check_branch_name('bug').must_equal(false)
+    branch_check.warnings.size.must_equal(2)
+    branch_check.warnings[0].must_equal('Branches must start with bug-##### '\
+      'or story-#####.')
+    branch_check.warnings[1].must_equal('You may continue to develop in this '\
+      'branch, but you will not be allowed to merge unless you rename it.')
+  end
 end

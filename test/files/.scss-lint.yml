@@ -1,0 +1,5 @@
+scss_files: '**/*.scss'
+
+linters:
+  BorderZero:
+    enabled: true

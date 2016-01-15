@@ -14,16 +14,16 @@ describe Renegade::Status do
 
   it 'shows passed status' do
     subject.report('Good Label', true)
-    $stdout.string.must_equal('  √ Good Label'.green)
+    $stdout.string.must_equal('  √ Good Label'.green + "\n")
   end
 
   it 'shows failed status' do
     subject.report('Bad Label', false)
-    $stdout.string.must_equal('  × Bad Label'.red)
+    $stdout.string.must_equal('  × Bad Label'.red + "\n")
   end
 
   it 'shows hook starting' do
     subject.hook_start('Hook Name')
-    $stdout.string.must_equal("\nRunning Hook Name hooks…")
+    $stdout.string.must_equal("\nRunning Hook Name hooks…\n")
   end
 end

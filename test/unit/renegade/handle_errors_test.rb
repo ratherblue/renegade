@@ -1,5 +1,6 @@
 require 'renegade/handle_errors'
 require 'stringio'
+require 'open3'
 
 describe Renegade::HandleErrors do
   subject { Renegade::HandleErrors }

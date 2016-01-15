@@ -1,16 +1,7 @@
 require 'renegade/branch_name'
-require 'stringio'
 
 describe Renegade::BranchName do
   subject { Renegade::BranchName }
-
-  before do
-    $stdout = StringIO.new
-  end
-
-  after(:all) do
-    $stdout = STDOUT
-  end
 
   it 'should not be a valid branch name' do
     branch_check = subject.new('Branch Name')

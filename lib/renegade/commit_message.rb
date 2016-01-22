@@ -28,7 +28,7 @@ module Renegade
         Status.report(check_label, true)
       else
         @errors.push "Commit messages should be between #{@min_length} "\
-          "and #{@max_length} characters."
+          "and #{@max_length} characterszzzz."
         Status.report(check_label, false)
       end
     end

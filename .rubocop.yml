@@ -2,4 +2,4 @@ Style/DefWithParentheses:
   Enabled: false
 
 Style/IfUnlessModifier:
-  Enabled: false
+  Enabled: true

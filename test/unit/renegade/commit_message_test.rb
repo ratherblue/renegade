@@ -19,7 +19,7 @@ describe Renegade::CommitMessage do
   end
 
   it 'should contain a bug id, story, or epic id' do
-    commit_message = subject.new('Commit Message')
+    commit_message = subject.new
     commit_message.run('BugId: 12345 | Example comment')
 
     $stdout.string.must_equal(success_msg)
@@ -28,7 +28,7 @@ describe Renegade::CommitMessage do
   end
 
   it 'should contain a story id' do
-    commit_message = subject.new('Commit Message')
+    commit_message = subject.new
     commit_message.run('Story: B-12345 | Example comment')
 
     $stdout.string.must_equal(success_msg)
@@ -37,7 +37,7 @@ describe Renegade::CommitMessage do
   end
 
   it 'should contain an epic id' do
-    commit_message = subject.new('Commit Message')
+    commit_message = subject.new
     commit_message.run('Epic: E-0345 | Example comment')
 
     $stdout.string.must_equal(success_msg)
@@ -46,7 +46,7 @@ describe Renegade::CommitMessage do
   end
 
   it 'should not be below a certain length' do
-    commit_message = subject.new('Commit Message')
+    commit_message = subject.new
     commit_message.run('Story: B-12345 | 123')
 
     $stdout.string.must_equal(
@@ -60,7 +60,7 @@ describe Renegade::CommitMessage do
   end
 
   it 'should not be above a certain length' do
-    commit_message = subject.new('Commit Message')
+    commit_message = subject.new
     commit_message.run('BugId: 1234 | really, really, really, really, '\
     'really, really long commit message')
 
@@ -75,7 +75,7 @@ describe Renegade::CommitMessage do
   end
 
   it 'should not have non-ascii characters' do
-    commit_message = subject.new('Commit Message')
+    commit_message = subject.new
     commit_message.run('Story: B-12345 | セーラームーン が 大好き！')
 
     $stdout.string.must_equal(

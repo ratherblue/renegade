@@ -13,7 +13,7 @@ module Renegade
     def run
       message_type = ARGV[1]
 
-      commit_message = Renegade::CommitMessage.new('Commit Message')
+      commit_message = Renegade::CommitMessage.new
 
       # Avoid checking merges
       if message_type == 'message'

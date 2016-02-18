@@ -7,9 +7,8 @@ module Renegade
 
     COMMIT_FORMAT = /^(?:(?:BugId: |Story: B+-|Epic: E-0)[1-9]\d* \| )(.*)/
 
-    def initialize(label)
+    def initialize
       # Instance variables
-      @label = label
       @warnings = []
       @errors = []
 

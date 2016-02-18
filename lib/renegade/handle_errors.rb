@@ -4,16 +4,16 @@ module Renegade
   class HandleErrors
     # Handle errors if they exist
     def self.handle_errors(errors)
-      if errors.size > 0
+      if errors.empty?
+        exit 0
+      else
         print_errors(errors)
         exit 1
-      else
-        exit 0
       end
     end
 
     def self.handle_warnings(warnings)
-      print_warnings(warnings) if warnings.size > 0
+      print_warnings(warnings) unless warnings.empty?
     end
 
     def self.print_errors(errors)

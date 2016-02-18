@@ -22,12 +22,10 @@ module Renegade
     def self.report(label, passed, warning = nil)
       if passed
         puts "  √ #{label}".green
+      elsif warning
+        puts "  × #{label}".yellow
       else
-        if warning
-          puts "  × #{label}".yellow
-        else
-          puts "  × #{label}".red
-        end
+        puts "  × #{label}".red
       end
     end
 

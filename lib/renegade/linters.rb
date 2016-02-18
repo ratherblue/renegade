@@ -19,7 +19,7 @@ module Renegade
       append_file_count(files)
 
       # Only run check if there are relevant files being committed
-      if files.size == 0
+      if files.empty?
         Status.report(@label, true)
       else
         Status.report(@label, exec(files))
@@ -30,11 +30,10 @@ module Renegade
     def append_file_count(files)
       file_size = files.size
 
-      if file_size == 0 || file_size > 1
-        @label = "#{@label} (#{file_size} files)"
-      else
-        @label = "#{@label} (1 file)"
-      end
+      label_count =
+        (file_size == 0 || file_size > 1) ? "#{file_size} files" : '1 file'
+
+      @label = "#{@label} (#{label_count})"
     end
 
     def exec(files)

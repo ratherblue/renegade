@@ -23,10 +23,8 @@ module Renegade
     end
 
     def check_branch_name(branch_name)
-      if REGEX_STORY_BRANCH.match(branch_name)
-        # placeholder
-        return true
-      elsif REGEX_BUG_BRANCH.match(branch_name)
+      if REGEX_STORY_BRANCH.match(branch_name) ||
+         REGEX_BUG_BRANCH.match(branch_name)
         # placeholder
         return true
       else

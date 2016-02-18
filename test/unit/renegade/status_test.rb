@@ -22,6 +22,11 @@ describe Renegade::Status do
     $stdout.string.must_equal('  × Bad Label'.red + "\n")
   end
 
+  it 'shows warning status' do
+    subject.report('Warning Label', false, true)
+    $stdout.string.must_equal('  × Warning Label'.yellow + "\n")
+  end
+
   it 'shows hook starting' do
     subject.hook_start('Hook Name')
     $stdout.string.must_equal("\nRunning Hook Name hooks…\n")

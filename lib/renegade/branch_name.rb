@@ -19,7 +19,7 @@ module Renegade
     def run
       branch_name = `git name-rev --name-only HEAD`
 
-      Status.report(@label, check_branch_name(branch_name))
+      Status.report(@label, check_branch_name(branch_name), true)
     end
 
     def check_branch_name(branch_name)

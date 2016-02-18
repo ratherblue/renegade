@@ -7,6 +7,10 @@ class String
   def green
     "\e[32m#{self}\e[0m"
   end
+
+  def yellow
+    "\e[32m#{self}\e[0m"
+  end
 end
 
 # Define string colors
@@ -15,11 +19,15 @@ module Renegade
   # Report statuses
   class Status
     # Report labels
-    def self.report(label, passed)
+    def self.report(label, passed, warning = nil)
       if passed
         puts "  √ #{label}".green
       else
-        puts "  × #{label}".red
+        if warning
+          puts "  × #{label}".yellow
+        else
+          puts "  × #{label}".red
+        end
       end
     end
 

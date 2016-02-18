@@ -9,7 +9,7 @@ class String
   end
 
   def yellow
-    "\e[103m#{self}\e[0m"
+    "\e[1;33m#{self}\e[0m"
   end
 end
 

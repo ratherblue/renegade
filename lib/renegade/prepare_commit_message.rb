@@ -2,15 +2,11 @@ require 'renegade/handle_errors'
 require 'renegade/status'
 require 'renegade/commit_message'
 
-# Array to store errors
-@errors = []
-
 module Renegade
   # Run linters
   class PrepareCommitMessage
-    def initialize
+    def initialize()
       Renegade::Status.hook_start('prepare-commit-msg')
-
       run
     end
 

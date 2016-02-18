@@ -42,9 +42,7 @@ module Renegade
       _stdin, stdout, stderr,
         wait_thread = Open3.popen3(@exec_command, files.join(' '))
 
-      if wait_thread.value.exitstatus == 1
-        @errors.push(stdout.read)
-      end
+      @errors.push(stdout.read) if wait_thread.value.exitstatus == 1
 
       stdout.gets(nil)
       stdout.close
@@ -58,9 +56,7 @@ module Renegade
       filtered_files = []
 
       file_list.each do |file|
-        if File.extname(file) == @extension
-          filtered_files.push(file)
-        end
+        filtered_files.push(file) if File.extname(file) == @extension
       end
 
       filtered_files

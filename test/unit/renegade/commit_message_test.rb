@@ -12,22 +12,47 @@ describe Renegade::CommitMessage do
     $stdout = STDOUT
   end
 
-  it 'should be between a certain length' do
-    commit_message = subject.new('Commit Message')
-    commit_message.run('This is a test commit message')
+  def success_msg
+    '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
+      '  √ Commit message length'.green + "\n" +
+      '  √ Only ASCII characters'.green + "\n"
+  end
 
-    $stdout.string.must_equal('  √ Commit message length'.green + "\n" +
-  '  √ Only ASCII characters'.green + "\n")
+  it 'should contain a bug id, story, or epic id' do
+    commit_message = subject.new('Commit Message')
+    commit_message.run('BugId: 12345 | Example comment')
+
+    $stdout.string.must_equal(success_msg)
+
+    commit_message.errors.size.must_equal(0)
+  end
+
+  it 'should contain a story id' do
+    commit_message = subject.new('Commit Message')
+    commit_message.run('Story: B-12345 | Example comment')
+
+    $stdout.string.must_equal(success_msg)
+
+    commit_message.errors.size.must_equal(0)
+  end
+
+  it 'should contain an epic id' do
+    commit_message = subject.new('Commit Message')
+    commit_message.run('Epic: E-0345 | Example comment')
+
+    $stdout.string.must_equal(success_msg)
 
     commit_message.errors.size.must_equal(0)
   end
 
   it 'should not be below a certain length' do
     commit_message = subject.new('Commit Message')
-    commit_message.run('1234')
+    commit_message.run('Story: B-12345 | 123')
 
-    $stdout.string.must_equal('  × Commit message length'.red + "\n" +
-  '  √ Only ASCII characters'.green + "\n")
+    $stdout.string.must_equal(
+      '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
+      '  × Commit message length'.red + "\n" +
+      '  √ Only ASCII characters'.green + "\n")
 
     commit_message.errors.size.must_equal(1)
     commit_message.errors[0].must_equal('Commit messages should be between '\
@@ -36,11 +61,13 @@ describe Renegade::CommitMessage do
 
   it 'should not be above a certain length' do
     commit_message = subject.new('Commit Message')
-    commit_message.run('really, really, really, really, really, really, long '\
-    'commit message')
+    commit_message.run('BugId: 1234 | really, really, really, really, '\
+    'really, really long commit message')
 
-    $stdout.string.must_equal('  × Commit message length'.red + "\n" +
-  '  √ Only ASCII characters'.green + "\n")
+    $stdout.string.must_equal(
+      '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
+      '  × Commit message length'.red + "\n" +
+      '  √ Only ASCII characters'.green + "\n")
 
     commit_message.errors.size.must_equal(1)
     commit_message.errors[0].must_equal('Commit messages should be between '\
@@ -49,10 +76,12 @@ describe Renegade::CommitMessage do
 
   it 'should not have non-ascii characters' do
     commit_message = subject.new('Commit Message')
-    commit_message.run('セーラームーン が 大好き！')
+    commit_message.run('Story: B-12345 | セーラームーン が 大好き！')
 
-    $stdout.string.must_equal('  √ Commit message length'.green + "\n" +
-  '  × Only ASCII characters'.red + "\n")
+    $stdout.string.must_equal(
+      '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
+      '  √ Commit message length'.green + "\n" +
+      '  × Only ASCII characters'.red + "\n")
 
     commit_message.errors.size.must_equal(1)
     commit_message.errors[0].must_equal('Commit messages may not contain '\

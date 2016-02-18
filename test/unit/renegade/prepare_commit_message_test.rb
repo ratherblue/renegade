@@ -12,8 +12,5 @@ describe Renegade::PrepareCommitMessage do
   end
 
   it 'should should check the commit message' do
-    subject.new
-
-    $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n")
   end
 end

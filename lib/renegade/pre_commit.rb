@@ -26,7 +26,6 @@ module Renegade
       # @protected_files.run
 
       Renegade::HandleErrors.handle_warnings(@branch_name.warnings)
-
       Renegade::HandleErrors.handle_errors(@conflict_markers.errors)
 
       # Renegade::HandleErrors.handle_errors(

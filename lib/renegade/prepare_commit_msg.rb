@@ -4,7 +4,7 @@ require 'renegade/commit_message'
 
 module Renegade
   # Run linters
-  class PrepareCommitMessage
+  class PrepareCommitMsg
     def initialize
       Renegade::Status.hook_start('prepare-commit-msg')
       run

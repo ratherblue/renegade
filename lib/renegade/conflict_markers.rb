@@ -16,7 +16,7 @@ module Renegade
     def run
       markers = `git diff-index --check --cached HEAD --`
 
-      Status.report(@label, check_markers(markers.chomp.strip))
+      check_markers(markers.chomp.strip)
     end
 
     def check_markers(markers)

@@ -43,7 +43,7 @@ module Renegade
         Status.report(check_label, true)
       else
         Status.report(check_label, false)
-        @errors.push 'Commit messages may not contain non-ASCII characters'
+        @errors.push('Commit messages may not contain non-ASCII characters')
       end
     end
 
@@ -67,7 +67,7 @@ module Renegade
       else
         Status.report(check_label, false)
         check_commit_message_length(message)
-        @errors.push check_commit_message_format_error
+        @errors.push(check_commit_message_format_error)
       end
     end
   end

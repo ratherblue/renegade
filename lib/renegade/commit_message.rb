@@ -50,9 +50,9 @@ module Renegade
     def check_commit_message_format_error
       'You must include a valid BugId, Story or Epic number.' + "\n"\
       '  Examples:' + "\n"\
-      '   - BugId: 12345 | Helpful comment describing bug fix' + "\n"\
-      '   - Story: B-12345 | Helpful comment describing story' + "\n"\
-      '   - Epic: E-12345 | Epic comment'
+      '  - BugId: 12345 | Helpful comment describing bug fix' + "\n"\
+      '  - Story: B-12345 | Helpful comment describing story' + "\n"\
+      '  - Epic: E-12345 | Epic comment'
     end
 
     # Check commit message contains no non-ASCII characters

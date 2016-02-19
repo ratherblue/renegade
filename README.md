@@ -3,8 +3,6 @@
 [![Build Status](https://img.shields.io/travis/ratherblue/renegade.svg?style=flat-square)](https://travis-ci.org/ratherblue/renegade)
 [![Coverage Status](https://img.shields.io/coveralls/ratherblue/renegade/master.svg?style=flat-square)](https://coveralls.io/r/ratherblue/renegade?branch=master)
 
-@todo
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -33,4 +31,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/ratherblue/renegade. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ratherblue/renegade.

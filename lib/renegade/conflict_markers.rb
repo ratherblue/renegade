@@ -7,9 +7,7 @@ module Renegade
   class ConflictMarkers
     attr_reader :errors, :warnings
 
-    def initialize(label)
-      # Instance variables
-      @label = label
+    def initialize
       @errors = []
     end
 

@@ -12,7 +12,7 @@ module Renegade
       # @scss_lint = Renegade::Linters.new('SCSS Lint', '.scss', 'scss-lint')
       # @eslint = Renegade::Linters.new('ESLint', '.js', 'eslint')
       @branch_name = Renegade::BranchName.new('Branch Name')
-      @conflict_markers = Renegade::ConflictMarkers.new('Conflict Markers')
+      @conflict_markers = Renegade::ConflictMarkers.new
       # @protected_files = Renegade::ProtectedFiles.new('Protected Files')
 
       run

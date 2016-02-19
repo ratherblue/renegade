@@ -5,10 +5,10 @@ module Renegade
     # Handle errors if they exist
     def self.handle_errors(errors)
       if errors.empty?
-        exit 0
+        true
       else
         print_errors(errors)
-        exit 1
+        false
       end
     end
 

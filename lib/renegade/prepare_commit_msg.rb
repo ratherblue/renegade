@@ -3,24 +3,18 @@ require 'renegade/status'
 require 'renegade/commit_message'
 
 module Renegade
-  # Run linters
+  # Run prepare commit message hooks
   class PrepareCommitMsg
-    def initialize
-      Renegade::Status.hook_start('prepare-commit-msg')
-      run
+    def initialize(args)
+      if args[1] == 'message' # Avoid checking merges
+        Renegade::Status.hook_start('prepare-commit-msg')
+        run(args[0])
+      end
     end
 
-    def run
-      message_type = ARGV[1]
-
+    def run(message_file)
       commit_message = Renegade::CommitMessage.new
-
-      # Avoid checking merges
-      if message_type == 'message'
-        message_file = ARGV[0]
-        message = File.read(message_file)
-        commit_message.run(message)
-      end
+      commit_message.run(File.read(message_file))
 
       Renegade::HandleErrors.handle_errors(commit_message.errors)
     end

@@ -38,13 +38,13 @@ describe Renegade::PrepareCommitMsg do
 
   it 'should do nothing if not a message' do
     subject.new(['./test/fixtures/commit_messages/just_right.txt',
-                 'something else'])
+                 'something else']).run
     $stdout.string.must_equal('')
   end
 
   it 'should be too long' do
     subject.new(['./test/fixtures/commit_messages/too_long.txt',
-                 'message'])
+                 'message']).run
 
     $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
       fail_length_msg + "\n"\
@@ -54,7 +54,7 @@ describe Renegade::PrepareCommitMsg do
 
   it 'should be too short' do
     subject.new(['./test/fixtures/commit_messages/too_short.txt',
-                 'message'])
+                 'message']).run
 
     $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
       fail_length_msg + "\n"\
@@ -64,7 +64,7 @@ describe Renegade::PrepareCommitMsg do
 
   it 'should have non-ascii' do
     subject.new(['./test/fixtures/commit_messages/has_non_ascii.txt',
-                 'message'])
+                 'message']).run
 
     $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
       fail_non_ascii_msg + "\n"\
@@ -74,7 +74,7 @@ describe Renegade::PrepareCommitMsg do
 
   it 'should fail everything' do
     subject.new(['./test/fixtures/commit_messages/fail_everything.txt',
-                 'message'])
+                 'message']).run
 
     $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
       fail_all_msg + "\n"\
@@ -86,5 +86,13 @@ describe Renegade::PrepareCommitMsg do
       "  - Story: B-12345 | Helpful comment describing story\n"\
       "  - Epic: E-12345 | Epic comment\n"\
       '- Commit messages may not contain non-ASCII characters' + "\n\n")
+  end
+
+  it 'should be just right' do
+    subject.new(['./test/fixtures/commit_messages/just_right.txt',
+                 'message']).run
+
+    $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
+      success_msg)
   end
 end

@@ -6,17 +6,20 @@ module Renegade
   # Run prepare commit message hooks
   class PrepareCommitMsg
     def initialize(args)
-      if args[1] == 'message' # Avoid checking merges
-        Renegade::Status.hook_start('prepare-commit-msg')
-        run(args[0])
-      end
+      @message = args[1]
+      @message_file = args[0]
+
+      # Avoid checking merges
+      Renegade::Status.hook_start('prepare-commit-msg') if @message == 'message'
     end
 
-    def run(message_file)
-      commit_message = Renegade::CommitMessage.new
-      commit_message.run(File.read(message_file))
+    def run
+      if @message == 'message' # Avoid checking merges
+        commit_message = Renegade::CommitMessage.new
+        commit_message.run(File.read(@message_file))
 
-      Renegade::HandleErrors.handle_errors(commit_message.errors)
+        Renegade::HandleErrors.handle_errors(commit_message.errors)
+      end
     end
   end
 end

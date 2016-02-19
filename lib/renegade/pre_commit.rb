@@ -14,8 +14,6 @@ module Renegade
       @branch_name = Renegade::BranchName.new('Branch Name')
       @conflict_markers = Renegade::ConflictMarkers.new
       # @protected_files = Renegade::ProtectedFiles.new('Protected Files')
-
-      run
     end
 
     def run

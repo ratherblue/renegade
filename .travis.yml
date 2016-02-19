@@ -3,9 +3,6 @@ language: ruby
 rvm:
   - 2.2
 
-cache:
- - bundler
-
 script:
   - gem install coveralls
   - bundle exec rubocop

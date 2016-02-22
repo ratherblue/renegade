@@ -4,7 +4,7 @@ describe Renegade::BranchName do
   subject { Renegade::BranchName }
 
   it 'should not be a valid branch name' do
-    branch_check = subject.new('Branch Name')
+    branch_check = subject.new
     branch_check.check_branch_name('zzzzzz').must_equal(false)
     branch_check.check_branch_name('bug').must_equal(false)
     branch_check.check_branch_name('bug-').must_equal(false)
@@ -13,7 +13,7 @@ describe Renegade::BranchName do
   end
 
   it 'should be a valid branch name' do
-    branch_check = subject.new('Branch Name')
+    branch_check = subject.new
     branch_check.check_branch_name('bug-1234').must_equal(true)
     branch_check.check_branch_name('bug-1234-description').must_equal(true)
     branch_check.check_branch_name('bug-1234 description').must_equal(true)
@@ -23,7 +23,7 @@ describe Renegade::BranchName do
   end
 
   it 'should populate warnings' do
-    branch_check = subject.new('Branch Name')
+    branch_check = subject.new
     branch_check.check_branch_name('bug').must_equal(false)
     branch_check.warnings.size.must_equal(2)
     branch_check.warnings[0].must_equal('Branches must start with bug-##### '\

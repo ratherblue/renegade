@@ -9,15 +9,15 @@ module Renegade
     REGEX_STORY_BRANCH = /^(?:story)-(\d{4,6})-?(.*)?$/
     REGEX_BUG_BRANCH = /^(?:bug)-(\d{4,6})-?(.*)?$/
 
-    def initialize(label)
+    def initialize
       # Instance variables
-      @label = label
+      @label = 'Branch Name'
       @warnings = []
       @errors = []
     end
 
-    def run
-      branch_name = `git name-rev --name-only HEAD`
+    def run(branch_name)
+      # branch_name = `git name-rev --name-only HEAD`
 
       Status.report(@label, check_branch_name(branch_name), true)
     end

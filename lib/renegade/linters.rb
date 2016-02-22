@@ -41,6 +41,9 @@ module Renegade
       _stdin, stdout, stderr,
         wait_thread = Open3.popen3(@exec_command, files.join(' '))
 
+        puts 'exec_command' + @exec_command
+        puts " files.join(' ')" + files.join(' ')
+
       @errors.push(stdout.read) if wait_thread.value.exitstatus == 1
 
       stdout.gets(nil)

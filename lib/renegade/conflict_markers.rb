@@ -1,29 +1,22 @@
-require 'open3'
 require 'renegade/status'
 
 module Renegade
   ##
   # Prevent merge artifacts from getting committed
   class ConflictMarkers
-    attr_reader :errors, :warnings
+    attr_reader :errors
 
     def initialize
+      @label = 'No merge artifacts'
       @errors = []
     end
 
-    def run
-      markers = `git diff-index --check --cached HEAD --`
-
-      check_markers(markers.chomp.strip)
-    end
-
-    def check_markers(markers)
-      check_label = 'No merge artifacts'
-
+    def run(markers)
+      # markers = `git diff-index --check --cached HEAD --`
       if markers == ''
-        Status.report(check_label, true)
+        Status.report(@label, true)
       else
-        Status.report(check_label, false)
+        Status.report(@label, false)
         @errors.push('Merge artifacts were found!' + "\n" + markers)
       end
     end

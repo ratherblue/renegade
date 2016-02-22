@@ -12,9 +12,25 @@ describe Renegade::PreCommit do
     $stdout = STDOUT
   end
 
-  it 'should set up the runners' do
-    subject.new
-
-    $stdout.string.must_equal("\nRunning pre-commit hooks…\n")
+  it 'should run successfully' do
+    pre_commit = subject.new
+    pre_commit.run([], 'story-1234', '')
+    $stdout.string.must_equal("\nRunning pre-commit hooks…\n" +
+    '  √ SCSS Lint (0 files)'.green + "\n" +
+    '  √ ESLint (0 files)'.green + "\n" +
+    '  √ Branch Name'.green + "\n" +
+    '  √ No merge artifacts'.green + "\n")
   end
+  # 
+  # it 'should fail eslint' do
+  #   pre_commit = subject.new
+  #   pre_commit.run(['./test/files/js/index.js',
+  #                   './test/files/js/main.js'], 'story-1234', '')
+  #
+  #   $stdout.string.must_equal("\nRunning pre-commit hooks…\n" +
+  #   '  √ SCSS Lint (0 files)'.green + "\n" +
+  #   '  √ ESLint (0 files)'.green + "\n" +
+  #   '  √ Branch Name'.green + "\n" +
+  #   '  √ No merge artifacts'.green + "\n")
+  # end
 end

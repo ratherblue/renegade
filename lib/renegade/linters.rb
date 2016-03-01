@@ -38,17 +38,13 @@ module Renegade
 
     def exec(files)
       # http://stackoverflow.com/questions/690151/getting-output-of-system-calls-in-ruby
-      _stdin, stdout, stderr,
-        wait_thread = Open3.popen3(@exec_command, files.join(' '))
-
-        puts 'exec_command' + @exec_command
-        puts " files.join(' ')" + files.join(' ')
+      stdin, stdout, stderr,
+        wait_thread = Open3.popen3(@exec_command + " #{files.join(' ')}")
 
       @errors.push(stdout.read) if wait_thread.value.exitstatus == 1
 
-      stdout.gets(nil)
+      stdin.close
       stdout.close
-      stderr.gets(nil)
       stderr.close
 
       wait_thread.value.exitstatus == 0

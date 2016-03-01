@@ -38,7 +38,8 @@ describe Renegade::PreCommit do
   it 'should fail eslint' do
     pre_commit = subject.new
 
-    pre_commit.run(['./test/fixtures/js/error.js'], 'story-1234', '')
+    file = File.expand_path('./test/fixtures/js/error.js')
+    pre_commit.run([file], 'story-1234', '')
 
     $stdout.string.must_equal("\nRunning pre-commit hooks…\n" +
     '  √ SCSS Lint (0 files)'.green + "\n" +
@@ -47,7 +48,7 @@ describe Renegade::PreCommit do
     '  √ No merge artifacts'.green + "\n\n"\
     'Errors:' + "\n"\
     '- ' + "\n"\
-    './test/fixtures/js/error.js' + "\n"\
+    "#{file}\n"\
     '  1:14  error  Missing semicolon  semi' + "\n\n"\
     '✖ 1 problem (1 error, 0 warnings)' + "\n\n\n")
   end

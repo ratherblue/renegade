@@ -4,6 +4,8 @@ rvm:
   - 2.2
 
 script:
+  - npm install eslint
+  - gem install scss_lint
   - gem install coveralls
   - bundle exec rubocop
   - rake test

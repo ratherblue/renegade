@@ -13,9 +13,9 @@ describe Renegade::CommitMessage do
   end
 
   def success_msg
-    '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
-      '  √ Commit message length'.green + "\n" +
-      '  √ Only ASCII characters'.green + "\n"
+    'Includes a valid BugId, Story or Epic number'.success + "\n" +
+      'Commit message length'.success + "\n" +
+      'Only ASCII characters'.success + "\n"
   end
 
   it 'should contain a bug id, story, or epic id' do
@@ -50,9 +50,9 @@ describe Renegade::CommitMessage do
     commit_message.run('Story: B-12345 | 123')
 
     $stdout.string.must_equal(
-      '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
-      '  × Commit message length'.red + "\n" +
-      '  √ Only ASCII characters'.green + "\n")
+      'Includes a valid BugId, Story or Epic number'.success + "\n" +
+      'Commit message length'.error + "\n" +
+      'Only ASCII characters'.success + "\n")
 
     commit_message.errors.size.must_equal(1)
     commit_message.errors[0].must_equal('Commit messages should be between '\
@@ -65,9 +65,9 @@ describe Renegade::CommitMessage do
     'really, really long commit message')
 
     $stdout.string.must_equal(
-      '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
-      '  × Commit message length'.red + "\n" +
-      '  √ Only ASCII characters'.green + "\n")
+      'Includes a valid BugId, Story or Epic number'.success + "\n" +
+      'Commit message length'.error + "\n" +
+      'Only ASCII characters'.success + "\n")
 
     commit_message.errors.size.must_equal(1)
     commit_message.errors[0].must_equal('Commit messages should be between '\
@@ -79,9 +79,9 @@ describe Renegade::CommitMessage do
     commit_message.run('Story: B-12345 | セーラームーン が 大好き！')
 
     $stdout.string.must_equal(
-      '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
-      '  √ Commit message length'.green + "\n" +
-      '  × Only ASCII characters'.red + "\n")
+      'Includes a valid BugId, Story or Epic number'.success + "\n" +
+      'Commit message length'.success + "\n" +
+      'Only ASCII characters'.error + "\n")
 
     commit_message.errors.size.must_equal(1)
     commit_message.errors[0].must_equal('Commit messages may not contain '\

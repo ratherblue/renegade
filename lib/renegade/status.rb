@@ -1,15 +1,15 @@
 # Add color options
 class String
-  def red
-    "\e[31m#{self}\e[0m"
+  def success
+    "\e[32m  √ #{self}\e[0m"
   end
 
-  def green
-    "\e[32m#{self}\e[0m"
+  def warning
+    "\e[1;33m  × #{self}\e[0m"
   end
 
-  def yellow
-    "\e[1;33m#{self}\e[0m"
+  def error
+    "\e[31m  × #{self}\e[0m"
   end
 end
 
@@ -21,11 +21,11 @@ module Renegade
     # Report labels
     def self.report(label, passed, warning = nil)
       if passed
-        puts "  √ #{label}".green
+        puts label.success
       elsif warning
-        puts "  × #{label}".yellow
+        puts label.warning
       else
-        puts "  × #{label}".red
+        puts label.error
       end
     end
 

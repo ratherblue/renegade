@@ -13,27 +13,27 @@ describe Renegade::PrepareCommitMsg do
   end
 
   def fail_all_msg
-    '  × Includes a valid BugId, Story or Epic number'.red + "\n" +
-      '  × Commit message length'.red + "\n" +
-      '  × Only ASCII characters'.red + "\n"
+    'Includes a valid BugId, Story or Epic number'.error + "\n" +
+      'Commit message length'.error + "\n" +
+      'Only ASCII characters'.error + "\n"
   end
 
   def success_msg
-    '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
-      '  √ Commit message length'.green + "\n" +
-      '  √ Only ASCII characters'.green + "\n"
+    'Includes a valid BugId, Story or Epic number'.success + "\n" +
+      'Commit message length'.success + "\n" +
+      'Only ASCII characters'.success + "\n"
   end
 
   def fail_length_msg
-    '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
-      '  × Commit message length'.red + "\n" +
-      '  √ Only ASCII characters'.green + "\n"
+    'Includes a valid BugId, Story or Epic number'.success + "\n" +
+      'Commit message length'.error + "\n" +
+      'Only ASCII characters'.success + "\n"
   end
 
   def fail_non_ascii_msg
-    '  √ Includes a valid BugId, Story or Epic number'.green + "\n" +
-      '  √ Commit message length'.green + "\n" +
-      '  × Only ASCII characters'.red + "\n"
+    'Includes a valid BugId, Story or Epic number'.success + "\n" +
+      'Commit message length'.success + "\n" +
+      'Only ASCII characters'.error + "\n"
   end
 
   it 'should do nothing if not a message' do

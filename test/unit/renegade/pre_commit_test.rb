@@ -19,20 +19,16 @@ describe Renegade::PreCommit do
     expected_output = <<-EOF
 
 Running pre-commit hooks…
-\e[32m  √ SCSS Lint (0 files)\e[0m
-\e[32m  √ ESLint (0 files)\e[0m
-\e[32m  √ Branch Name\e[0m
-\e[32m  √ No merge artifacts\e[0m
+#{'SCSS Lint (0 files)'.success}
+#{'ESLint (0 files)'.success}
+#{'Branch Name'.success}
+#{'No merge artifacts'.success}
 EOF
 
-    $stdout.string.must_equal("\nRunning pre-commit hooks…\n" +
-    '  √ SCSS Lint (0 files)'.green + "\n" +
-    '  √ ESLint (0 files)'.green + "\n" +
-    '  √ Branch Name'.green + "\n" +
-    '  √ No merge artifacts'.green + "\n")
+    $stdout.string.must_equal(expected_output)
   end
 
-  it 'should pass eslint' do
+  it 'should success eslint' do
     pre_commit = subject.new
 
     pre_commit.run(['./test/fixtures/js/index.js',
@@ -41,10 +37,10 @@ EOF
     expected_output = <<-EOF
 
 Running pre-commit hooks…
-\e[32m  √ SCSS Lint (0 files)\e[0m
-\e[32m  √ ESLint (2 files)\e[0m
-\e[32m  √ Branch Name\e[0m
-\e[32m  √ No merge artifacts\e[0m
+#{'SCSS Lint (0 files)'.success}
+#{'ESLint (2 files)'.success}
+#{'Branch Name'.success}
+#{'No merge artifacts'.success}
 EOF
 
     $stdout.string.must_equal(expected_output)
@@ -58,10 +54,10 @@ EOF
 
     # TODO: find a better way to write this
     $stdout.string.must_equal("\nRunning pre-commit hooks…\n" +
-    '  √ SCSS Lint (0 files)'.green + "\n" +
-    '  × ESLint (1 file)'.red + "\n" +
-    '  √ Branch Name'.green + "\n" +
-    '  √ No merge artifacts'.green + "\n\n"\
+    'SCSS Lint (0 files)'.success + "\n" +
+    'ESLint (1 file)'.error + "\n" +
+    'Branch Name'.success + "\n" +
+    'No merge artifacts'.success + "\n\n"\
     'Errors:' + "\n"\
     '- ' + "\n"\
     "#{file}\n"\

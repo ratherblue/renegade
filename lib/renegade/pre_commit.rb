@@ -19,6 +19,7 @@ module Renegade
 
     def run(files, branch_name, markers)
       unless files.empty?
+        files = files.split("\n")
         @scss_lint.run(files)
         @eslint.run(files)
         @branch_name.run(branch_name)

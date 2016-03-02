@@ -3,6 +3,7 @@ require 'renegade/status'
 require 'renegade/linters'
 require 'renegade/branch_name'
 require 'renegade/conflict_markers'
+require 'renegade/protected_files'
 
 module Renegade
   # Run linters

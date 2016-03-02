@@ -28,16 +28,18 @@ EOF
     $stdout.string.must_equal(expected_output)
   end
 
-  it 'should pass eslint' do
+  it 'should pass eslint and scss-lint' do
     pre_commit = subject.new
 
     pre_commit.run(['./test/fixtures/js/index.js',
-                    './test/fixtures/js/main.js'], 'story-1234', '')
+                    './test/fixtures/js/main.js',
+                    './test/fixtures/scss/partials/_base.scss',
+                    './test/fixtures/scss/styles.scss'], 'story-1234', '')
 
     expected_output = <<-EOF
 
 Running pre-commit hooks…
-#{'SCSS Lint (0 files)'.success}
+#{'SCSS Lint (2 files)'.success}
 #{'ESLint (2 files)'.success}
 #{'Branch Name'.success}
 #{'No merge artifacts'.success}
@@ -63,5 +65,29 @@ EOF
     "#{file}\n"\
     '  1:14  error  Missing semicolon  semi' + "\n\n"\
     '✖ 1 problem (1 error, 0 warnings)' + "\n\n\n")
+  end
+
+  it 'should fail scss-lint' do
+    pre_commit = subject.new
+
+    file = File.expand_path('./test/fixtures/scss/partials/_error.scss')
+    pre_commit.run([file],
+                   'story-1234', '')
+
+    expected_output = <<-EOF
+
+Running pre-commit hooks…
+#{'SCSS Lint (1 file)'.error}
+#{'ESLint (0 files)'.success}
+#{'Branch Name'.success}
+#{'No merge artifacts'.success}
+
+Errors:
+- #{file}:2 [W] TrailingSemicolon: Declaration should be terminated by a semicolon
+#{file}:2 [W] ImportantRule: !important should not be used
+
+EOF
+
+    $stdout.string.must_equal(expected_output)
   end
 end

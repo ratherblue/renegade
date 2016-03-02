@@ -90,4 +90,26 @@ EOF
 
     $stdout.string.must_equal(expected_output)
   end
+
+  it 'should fail merge artifacts' do
+    pre_commit = subject.new
+
+    pre_commit.run([], 'story-1234', 'example merge artifact')
+
+    expected_output = <<-EOF
+
+Running pre-commit hooks…
+#{'SCSS Lint (0 files)'.success}
+#{'ESLint (0 files)'.success}
+#{'Branch Name'.success}
+#{'No merge artifacts'.error}
+
+Errors:
+- Merge artifacts were found!
+example merge artifact
+
+EOF
+
+    $stdout.string.must_equal(expected_output)
+  end
 end

@@ -12,17 +12,13 @@ describe Renegade::PreCommit do
     $stdout = STDOUT
   end
 
-  it 'should run successfully' do
+  it 'should skip successfully' do
     pre_commit = subject.new
     pre_commit.run('', 'story-1234', '')
 
     expected_output = <<-EOF
 
 Running pre-commit hooks…
-#{'SCSS Lint (0 files)'.success}
-#{'ESLint (0 files)'.success}
-#{'Branch Name'.success}
-#{'No merge artifacts'.success}
 EOF
 
     $stdout.string.must_equal(expected_output)
@@ -96,14 +92,17 @@ EOF
   it 'should fail merge artifacts' do
     pre_commit = subject.new
 
-    pre_commit.run('', 'story-1234', "temp.txt:1: leftover conflict marker\n"\
-    "temp.txt:3: leftover conflict marker\n"\
-    "temp.txt:5: leftover conflict marker\n")
+    pre_commit.run(
+      File.expand_path('./test/fixtures/scss/partials/_base.scss'),
+      'story-1234',
+      "temp.txt:1: leftover conflict marker\n"\
+      "temp.txt:3: leftover conflict marker\n"\
+      "temp.txt:5: leftover conflict marker\n")
 
     expected_output = <<-EOF
 
 Running pre-commit hooks…
-#{'SCSS Lint (0 files)'.success}
+#{'SCSS Lint (1 file)'.success}
 #{'ESLint (0 files)'.success}
 #{'Branch Name'.success}
 #{'No merge artifacts'.error}

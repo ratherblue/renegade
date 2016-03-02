@@ -96,7 +96,9 @@ EOF
   it 'should fail merge artifacts' do
     pre_commit = subject.new
 
-    pre_commit.run('', 'story-1234', 'example merge artifact')
+    pre_commit.run('', 'story-1234', "temp.txt:1: leftover conflict marker\n"\
+    "temp.txt:3: leftover conflict marker\n"\
+    "temp.txt:5: leftover conflict marker\n")
 
     expected_output = <<-EOF
 
@@ -108,7 +110,9 @@ Running pre-commit hooks…
 
 Errors:
 - Merge artifacts were found!
-example merge artifact
+temp.txt:1: leftover conflict marker
+temp.txt:3: leftover conflict marker
+temp.txt:5: leftover conflict marker
 
 EOF
 

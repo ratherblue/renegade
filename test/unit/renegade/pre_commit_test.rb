@@ -28,7 +28,7 @@ EOF
     $stdout.string.must_equal(expected_output)
   end
 
-  it 'should pass eslint and scss-lint' do
+  it 'should pass everything' do
     pre_commit = subject.new
 
     pre_commit.run(['./test/fixtures/js/index.js',

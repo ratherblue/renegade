@@ -46,7 +46,8 @@ describe Renegade::PrepareCommitMsg do
     subject.new(['./test/fixtures/commit_messages/too_long.txt',
                  'message']).run
 
-    $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
+    $stdout.string.must_equal("\n"\
+      "\e[35mRunning prepare-commit-msg hooks…\e[0m\n" +
       fail_length_msg + "\n"\
       "Errors:\n"\
       '- Commit messages should be between 7 and 50 characters.' + "\n\n")
@@ -56,7 +57,8 @@ describe Renegade::PrepareCommitMsg do
     subject.new(['./test/fixtures/commit_messages/too_short.txt',
                  'message']).run
 
-    $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
+    $stdout.string.must_equal("\n"\
+      "\e[35mRunning prepare-commit-msg hooks…\e[0m\n" +
       fail_length_msg + "\n"\
       "Errors:\n"\
       '- Commit messages should be between 7 and 50 characters.' + "\n\n")
@@ -66,7 +68,8 @@ describe Renegade::PrepareCommitMsg do
     subject.new(['./test/fixtures/commit_messages/has_non_ascii.txt',
                  'message']).run
 
-    $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
+    $stdout.string.must_equal("\n"\
+      "\e[35mRunning prepare-commit-msg hooks…\e[0m\n" +
       fail_non_ascii_msg + "\n"\
       "Errors:\n"\
       '- Commit messages may not contain non-ASCII characters' + "\n\n")
@@ -76,7 +79,8 @@ describe Renegade::PrepareCommitMsg do
     subject.new(['./test/fixtures/commit_messages/fail_everything.txt',
                  'message']).run
 
-    $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
+    $stdout.string.must_equal("\n"\
+      "\e[35mRunning prepare-commit-msg hooks…\e[0m\n" +
       fail_all_msg + "\n"\
       "Errors:\n"\
       "- Commit messages should be between 7 and 50 characters.\n"\
@@ -92,7 +96,8 @@ describe Renegade::PrepareCommitMsg do
     subject.new(['./test/fixtures/commit_messages/just_right.txt',
                  'message']).run
 
-    $stdout.string.must_equal("\nRunning prepare-commit-msg hooks…\n" +
+    $stdout.string.must_equal("\n"\
+      "\e[35mRunning prepare-commit-msg hooks…\e[0m\n" +
       success_msg)
   end
 end

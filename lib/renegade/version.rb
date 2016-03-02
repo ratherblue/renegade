@@ -1,4 +1,4 @@
 # Renegade version
 module Renegade
-  VERSION = '0.1.38'.freeze
+  VERSION = '0.1.43'.freeze
 end

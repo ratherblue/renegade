@@ -12,17 +12,13 @@ describe Renegade::PreCommit do
     $stdout = STDOUT
   end
 
-  it 'should run successfully' do
+  it 'should skip successfully' do
     pre_commit = subject.new
-    pre_commit.run([], 'story-1234', '')
+    pre_commit.run('', 'story-1234', '')
 
     expected_output = <<-EOF
 
-Running pre-commit hooks…
-#{'SCSS Lint (0 files)'.success}
-#{'ESLint (0 files)'.success}
-#{'Branch Name'.success}
-#{'No merge artifacts'.success}
+#{'Running pre-commit hooks…'.status}
 EOF
 
     $stdout.string.must_equal(expected_output)
@@ -31,14 +27,15 @@ EOF
   it 'should pass everything' do
     pre_commit = subject.new
 
-    pre_commit.run(['./test/fixtures/js/index.js',
-                    './test/fixtures/js/main.js',
-                    './test/fixtures/scss/partials/_base.scss',
-                    './test/fixtures/scss/styles.scss'], 'story-1234', '')
+    pre_commit.run("./test/fixtures/js/index.js\n"\
+                    "./test/fixtures/js/main.js\n"\
+                    "./test/fixtures/html/index.html\n"\
+                    "./test/fixtures/scss/partials/_base.scss\n"\
+                    "./test/fixtures/scss/styles.scss\n", 'story-1234', '')
 
     expected_output = <<-EOF
 
-Running pre-commit hooks…
+#{'Running pre-commit hooks…'.status}
 #{'SCSS Lint (2 files)'.success}
 #{'ESLint (2 files)'.success}
 #{'Branch Name'.success}
@@ -52,10 +49,11 @@ EOF
     pre_commit = subject.new
 
     file = File.expand_path('./test/fixtures/js/error.js')
-    pre_commit.run([file], 'story-1234', '')
+    pre_commit.run(file, 'story-1234', '')
 
     # TODO: find a better way to write this
-    $stdout.string.must_equal("\nRunning pre-commit hooks…\n" +
+    $stdout.string.must_equal("\n"\
+    "\e[35mRunning pre-commit hooks…\e[0m\n" +
     'SCSS Lint (0 files)'.success + "\n" +
     'ESLint (1 file)'.error + "\n" +
     'Branch Name'.success + "\n" +
@@ -71,12 +69,12 @@ EOF
     pre_commit = subject.new
 
     file = File.expand_path('./test/fixtures/scss/partials/_error.scss')
-    pre_commit.run([file],
+    pre_commit.run(file,
                    'story-1234', '')
 
     expected_output = <<-EOF
 
-Running pre-commit hooks…
+#{'Running pre-commit hooks…'.status}
 #{'SCSS Lint (1 file)'.error}
 #{'ESLint (0 files)'.success}
 #{'Branch Name'.success}
@@ -95,19 +93,26 @@ EOF
   it 'should fail merge artifacts' do
     pre_commit = subject.new
 
-    pre_commit.run([], 'story-1234', 'example merge artifact')
+    pre_commit.run(
+      File.expand_path('./test/fixtures/scss/partials/_base.scss'),
+      'story-1234',
+      "temp.txt:1: leftover conflict marker\n"\
+      "temp.txt:3: leftover conflict marker\n"\
+      "temp.txt:5: leftover conflict marker\n")
 
     expected_output = <<-EOF
 
-Running pre-commit hooks…
-#{'SCSS Lint (0 files)'.success}
+#{'Running pre-commit hooks…'.status}
+#{'SCSS Lint (1 file)'.success}
 #{'ESLint (0 files)'.success}
 #{'Branch Name'.success}
 #{'No merge artifacts'.error}
 
 Errors:
 - Merge artifacts were found!
-example merge artifact
+temp.txt:1: leftover conflict marker
+temp.txt:3: leftover conflict marker
+temp.txt:5: leftover conflict marker
 
 EOF
 

@@ -17,15 +17,17 @@ module Renegade
     end
 
     def run(files, branch_name, markers)
-      @scss_lint.run(files)
-      @eslint.run(files)
-      @branch_name.run(branch_name)
-      @conflict_markers.run(markers)
-      # @protected_files.run
+      unless files.empty?
+        @scss_lint.run(files)
+        @eslint.run(files)
+        @branch_name.run(branch_name)
+        @conflict_markers.run(markers)
+        # @protected_files.run
 
-      Renegade::HandleErrors.handle_warnings(@branch_name.warnings)
-      Renegade::HandleErrors.handle_errors(@scss_lint.errors +
-        @eslint.errors + @conflict_markers.errors)
+        Renegade::HandleErrors.handle_warnings(@branch_name.warnings)
+        Renegade::HandleErrors.handle_errors(@scss_lint.errors +
+          @eslint.errors + @conflict_markers.errors)
+      end
     end
   end
 end

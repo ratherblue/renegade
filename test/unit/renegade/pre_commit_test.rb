@@ -14,7 +14,7 @@ describe Renegade::PreCommit do
 
   it 'should run successfully' do
     pre_commit = subject.new
-    pre_commit.run([], 'story-1234', '')
+    pre_commit.run('', 'story-1234', '')
 
     expected_output = <<-EOF
 
@@ -31,11 +31,11 @@ EOF
   it 'should pass everything' do
     pre_commit = subject.new
 
-    pre_commit.run(['./test/fixtures/js/index.js',
-                    './test/fixtures/js/main.js',
-                    './test/fixtures/html/index.html',
-                    './test/fixtures/scss/partials/_base.scss',
-                    './test/fixtures/scss/styles.scss'], 'story-1234', '')
+    pre_commit.run("./test/fixtures/js/index.js\n"\
+                    "./test/fixtures/js/main.js\n"\
+                    "./test/fixtures/html/index.html\n"\
+                    "./test/fixtures/scss/partials/_base.scss\n"\
+                    "./test/fixtures/scss/styles.scss\n", 'story-1234', '')
 
     expected_output = <<-EOF
 
@@ -72,7 +72,7 @@ EOF
     pre_commit = subject.new
 
     file = File.expand_path('./test/fixtures/scss/partials/_error.scss')
-    pre_commit.run([file],
+    pre_commit.run(file,
                    'story-1234', '')
 
     expected_output = <<-EOF
@@ -96,7 +96,7 @@ EOF
   it 'should fail merge artifacts' do
     pre_commit = subject.new
 
-    pre_commit.run([], 'story-1234', 'example merge artifact')
+    pre_commit.run('', 'story-1234', 'example merge artifact')
 
     expected_output = <<-EOF
 

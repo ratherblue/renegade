@@ -26,7 +26,7 @@ module Renegade
     end
 
     def report(file_list)
-      Status.report(@label, !@warnings.empty?)
+      Status.report(@label, @warnings.empty?)
 
       unless @warnings.empty?
         @errors.push('You are trying to commit changes to the following'\

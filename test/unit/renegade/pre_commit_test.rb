@@ -40,6 +40,7 @@ EOF
 #{'ESLint (2 files)'.success}
 #{'Branch Name'.success}
 #{'No merge artifacts'.success}
+#{'No accidental edit of protected files'.success}
 EOF
 
     $stdout.string.must_equal(expected_output)
@@ -57,7 +58,8 @@ EOF
     'SCSS Lint (0 files)'.success + "\n" +
     'ESLint (1 file)'.error + "\n" +
     'Branch Name'.success + "\n" +
-    'No merge artifacts'.success + "\n\n"\
+    'No merge artifacts'.success + "\n" +
+    'No accidental edit of protected files'.success + "\n\n"\
     'Errors:' + "\n"\
     '- ' + "\n"\
     "#{file}\n"\
@@ -79,6 +81,7 @@ EOF
 #{'ESLint (0 files)'.success}
 #{'Branch Name'.success}
 #{'No merge artifacts'.success}
+#{'No accidental edit of protected files'.success}
 
 Errors:
 - #{file}:2 [W] TrailingSemicolon: Declaration should be terminated by a semicolon
@@ -107,6 +110,7 @@ EOF
 #{'ESLint (0 files)'.success}
 #{'Branch Name'.success}
 #{'No merge artifacts'.error}
+#{'No accidental edit of protected files'.success}
 
 Errors:
 - Merge artifacts were found!

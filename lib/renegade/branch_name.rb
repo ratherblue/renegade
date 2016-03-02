@@ -24,7 +24,8 @@ module Renegade
 
     def check_branch_name(branch_name)
       if REGEX_STORY_BRANCH.match(branch_name) ||
-         REGEX_BUG_BRANCH.match(branch_name)
+         REGEX_BUG_BRANCH.match(branch_name) ||
+         branch_name == 'master'
         # placeholder
         return true
       else

@@ -24,7 +24,7 @@ describe Renegade::Status do
 
   it 'shows warning status' do
     subject.report('Warning Label', false, true)
-    $stdout.string.must_equal("\e[1;33m  × Warning Label\e[0m\n")
+    $stdout.string.must_equal("\e[33m  × Warning Label\e[0m\n")
   end
 
   it 'shows hook starting' do

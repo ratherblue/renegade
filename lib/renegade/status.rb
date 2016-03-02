@@ -5,7 +5,7 @@ class String
   end
 
   def warning
-    "\e[1;33m  × #{self}\e[0m"
+    "\e[33m  × #{self}\e[0m"
   end
 
   def error

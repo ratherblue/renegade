@@ -33,6 +33,7 @@ EOF
 
     pre_commit.run(['./test/fixtures/js/index.js',
                     './test/fixtures/js/main.js',
+                    './test/fixtures/html/index.html',
                     './test/fixtures/scss/partials/_base.scss',
                     './test/fixtures/scss/styles.scss'], 'story-1234', '')
 
@@ -52,7 +53,7 @@ EOF
     pre_commit = subject.new
 
     file = File.expand_path('./test/fixtures/js/error.js')
-    pre_commit.run([file], 'story-1234', '')
+    pre_commit.run(file, 'story-1234', '')
 
     # TODO: find a better way to write this
     $stdout.string.must_equal("\nRunning pre-commit hooks…\n" +

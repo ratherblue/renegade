@@ -14,6 +14,7 @@ describe Renegade::BranchName do
 
   it 'should be a valid branch name' do
     branch_check = subject.new
+    branch_check.check_branch_name('master').must_equal(true)
     branch_check.check_branch_name('bug-1234').must_equal(true)
     branch_check.check_branch_name('bug-1234-description').must_equal(true)
     branch_check.check_branch_name('bug-1234 description').must_equal(true)

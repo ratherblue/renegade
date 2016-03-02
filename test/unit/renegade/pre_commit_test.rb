@@ -86,6 +86,7 @@ Errors:
 - #{file}:2 [W] TrailingSemicolon: Declaration should be terminated by a semicolon
 #{file}:2 [W] ImportantRule: !important should not be used
 
+
 EOF
 
     $stdout.string.must_equal(expected_output)

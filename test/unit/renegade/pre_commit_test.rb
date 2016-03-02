@@ -18,7 +18,7 @@ describe Renegade::PreCommit do
 
     expected_output = <<-EOF
 
-Running pre-commit hooks…
+#{'Running pre-commit hooks…'.status}
 EOF
 
     $stdout.string.must_equal(expected_output)
@@ -35,7 +35,7 @@ EOF
 
     expected_output = <<-EOF
 
-Running pre-commit hooks…
+#{'Running pre-commit hooks…'.status}
 #{'SCSS Lint (2 files)'.success}
 #{'ESLint (2 files)'.success}
 #{'Branch Name'.success}
@@ -52,7 +52,8 @@ EOF
     pre_commit.run(file, 'story-1234', '')
 
     # TODO: find a better way to write this
-    $stdout.string.must_equal("\nRunning pre-commit hooks…\n" +
+    $stdout.string.must_equal("\n"\
+    "\e[35mRunning pre-commit hooks…\e[0m\n" +
     'SCSS Lint (0 files)'.success + "\n" +
     'ESLint (1 file)'.error + "\n" +
     'Branch Name'.success + "\n" +
@@ -73,7 +74,7 @@ EOF
 
     expected_output = <<-EOF
 
-Running pre-commit hooks…
+#{'Running pre-commit hooks…'.status}
 #{'SCSS Lint (1 file)'.error}
 #{'ESLint (0 files)'.success}
 #{'Branch Name'.success}
@@ -101,7 +102,7 @@ EOF
 
     expected_output = <<-EOF
 
-Running pre-commit hooks…
+#{'Running pre-commit hooks…'.status}
 #{'SCSS Lint (1 file)'.success}
 #{'ESLint (0 files)'.success}
 #{'Branch Name'.success}

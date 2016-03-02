@@ -1,5 +1,9 @@
 # Add color options
 class String
+  def status
+    "\e[35m#{self}\e[0m"
+  end
+
   def success
     "\e[32m  √ #{self}\e[0m"
   end
@@ -30,7 +34,7 @@ module Renegade
     end
 
     def self.hook_start(hook)
-      puts "\nRunning #{hook} hooks…"
+      puts "\n" + "Running #{hook} hooks…".status
     end
   end
 end

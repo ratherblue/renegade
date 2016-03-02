@@ -29,6 +29,6 @@ describe Renegade::Status do
 
   it 'shows hook starting' do
     subject.hook_start('Hook Name')
-    $stdout.string.must_equal("\nRunning Hook Name hooks…\n")
+    $stdout.string.must_equal("\n\e[35mRunning Hook Name hooks…\e[0m\n")
   end
 end

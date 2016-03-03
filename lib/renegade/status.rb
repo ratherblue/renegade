@@ -1,5 +1,9 @@
 # Add color options
 class String
+  def highlight
+    "\e[36m#{self}\e[0m"
+  end
+
   def status
     "\e[35m#{self}\e[0m"
   end

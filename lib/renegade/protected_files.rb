@@ -18,7 +18,7 @@ module Renegade
       files.each do |file|
         if @protected_files.include?(File.basename(file).downcase)
           file_list.push(File.expand_path(file))
-          @warnings.push("Warning! You are making changes to: #{file}")
+          @warnings.push 'Warning! You are making changes to: ' + file.highlight
         end
       end
 
@@ -29,9 +29,9 @@ module Renegade
       Status.report(@label, @warnings.empty?)
 
       unless @warnings.empty?
-        @errors.push('You are trying to commit changes to the following'\
+        @errors.push('You are trying to commit changes to the following '\
         'protected files:'\
-        "\n#{file_list.join("\n")}")
+        "\n  #{file_list.join("\n  ")}")
         @errors.push(override_instructions)
       end
     end
@@ -46,8 +46,8 @@ module Renegade
 
     def override_instructions
       'If you want to commit these changes, please add '\
-      '"editing <file name>.config" to your commit message'\
-      'If this was uninintentional: '\
+      '"editing <file name>.config" to your commit message.' + "\n"\
+      '  If this was uninintentional: '\
       'Please unstage the files using `git reset HEAD <file name>`'
     end
   end

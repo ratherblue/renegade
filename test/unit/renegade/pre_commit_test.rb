@@ -122,4 +122,86 @@ EOF
 
     $stdout.string.must_equal(expected_output)
   end
+
+  it 'should skip successfully' do
+    pre_commit = subject.new
+    pre_commit.run('', 'story-1234', '')
+
+    expected_output = <<-EOF
+
+#{'Running pre-commit hooks…'.status}
+EOF
+
+    $stdout.string.must_equal(expected_output)
+  end
+
+  it 'should fail protected files' do
+    pre_commit = subject.new
+
+    file1 = File.expand_path('./test/fixtures/web.config')
+    file2 = File.expand_path('./test/fixtures/app.config')
+    pre_commit.run(file1 + "\n" + file2, 'story-1234', '')
+
+    expected_output = <<-EOF
+
+#{'Running pre-commit hooks…'.status}
+#{'SCSS Lint (0 files)'.success}
+#{'ESLint (0 files)'.success}
+#{'Branch Name'.success}
+#{'No merge artifacts'.success}
+#{'No accidental edit of protected files'.error}
+
+Warnings:
+- Warning! You are making changes to: #{file1}
+- Warning! You are making changes to: #{file2}
+
+
+Errors:
+- You are trying to commit changes to the following protected files:
+#{file1}
+#{file2}
+- If you want to commit these changes, please add \
+"editing <file name>.config" to your commit message.
+ If this was uninintentional: Please unstage the files using \
+`git reset HEAD <file name>`
+
+EOF
+
+    $stdout.string.must_equal(expected_output)
+  end
+
+  it 'should pass protected files' do
+    pre_commit = subject.new
+
+    file1 = File.expand_path('./test/fixtures/web.config')
+    file2 = File.expand_path('./test/fixtures/app.config')
+    pre_commit.run(file1 + "\n" + file2, 'story-1234', '')
+
+    expected_output = <<-EOF
+
+#{'Running pre-commit hooks…'.status}
+#{'SCSS Lint (0 files)'.success}
+#{'ESLint (0 files)'.success}
+#{'Branch Name'.success}
+#{'No merge artifacts'.success}
+#{'No accidental edit of protected files'.error}
+
+Warnings:
+- Warning! You are making changes to: #{file1.highlight}
+- Warning! You are making changes to: #{file2.highlight}
+
+
+Errors:
+- You are trying to commit changes to the following protected files:
+  #{file1}
+  #{file2}
+- If you want to commit these changes, please add \
+"editing <file name>.config" to your commit message.
+  If this was uninintentional: Please unstage the files using \
+`git reset HEAD <file name>`
+
+EOF
+
+    $stdout.string.must_equal(expected_output)
+  end
 end

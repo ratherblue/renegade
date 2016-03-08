@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('minitest-reporters', '~> 1.1.7')
   spec.add_development_dependency('rubocop', '~> 0.37.2')
   spec.add_development_dependency('scss_lint', '~> 0.47.0')
+  spec.add_development_dependency('highline', '~> 1.7.8')
 end

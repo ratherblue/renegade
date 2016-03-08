@@ -34,7 +34,7 @@ module Renegade
       Renegade::HandleErrors.handle_warnings(@branch_name.warnings +
         @protected_files.warnings)
       Renegade::HandleErrors.handle_errors(@scss_lint.errors +
-        @eslint.errors + @conflict_markers.errors + @protected_files.errors)
+        @eslint.errors + @conflict_markers.errors)
     end
   end
 end

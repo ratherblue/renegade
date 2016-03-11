@@ -53,7 +53,7 @@ module Renegade
     def filter_files(file_list)
       filtered_files = []
 
-      file_list.split("\n").each do |file|
+      file_list.each do |file|
         filtered_files.push(file) if File.extname(file) == @extension
       end
 

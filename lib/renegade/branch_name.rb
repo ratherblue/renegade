@@ -4,7 +4,7 @@ module Renegade
   ##
   # Verify branch name
   class BranchName
-    attr_reader :errors, :warnings
+    attr_reader :errors, :warnings, :warning
 
     REGEX_STORY_BRANCH = /^(?:story)-(\d{4,6})-?(.*)?$/
     REGEX_BUG_BRANCH = /^(?:bug)-(\d{4,6})-?(.*)?$/
@@ -14,6 +14,7 @@ module Renegade
       @label = 'Branch Name'
       @warnings = []
       @errors = []
+      @warning = 'Branches must start with bug-##### or story-#####.'
     end
 
     def run(branch_name)
@@ -29,7 +30,7 @@ module Renegade
         # placeholder
         return true
       else
-        @warnings.push('Branches must start with bug-##### or story-#####.')
+        @warnings.push(@warning)
         @warnings.push('You may continue to develop in this branch, but you'\
           ' will not be allowed to merge unless you rename it.')
         return false

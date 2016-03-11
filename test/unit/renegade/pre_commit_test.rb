@@ -21,7 +21,7 @@ describe Renegade::PreCommit do
 #{'Running pre-commit hooks…'.status}
 EOF
 
-    $stdout.string.must_equal(expected_output)
+    $stdout.string. must_equal(expected_output)
   end
 
   it 'should pass everything' do
@@ -113,6 +113,42 @@ Errors:
 temp.txt:1: leftover conflict marker
 temp.txt:3: leftover conflict marker
 temp.txt:5: leftover conflict marker
+
+EOF
+
+    $stdout.string.must_equal(expected_output)
+  end
+
+  it 'should skip successfully' do
+    pre_commit = subject.new
+    pre_commit.run('', 'story-1234', '')
+
+    expected_output = <<-EOF
+
+#{'Running pre-commit hooks…'.status}
+EOF
+
+    $stdout.string.must_equal(expected_output)
+  end
+
+  it 'should warn protected files' do
+    pre_commit = subject.new
+
+    file1 = File.expand_path('./test/fixtures/web.config')
+    file2 = File.expand_path('./test/fixtures/app.config')
+    pre_commit.run(file1 + "\n" + file2, 'story-1234', '')
+
+    expected_output = <<-EOF
+
+#{'Running pre-commit hooks…'.status}
+#{'SCSS Lint (0 files)'.success}
+#{'ESLint (0 files)'.success}
+#{'Branch Name'.success}
+#{'No merge artifacts'.success}
+
+Warnings:
+- Warning! You are making changes to: #{file1.highlight}
+- Warning! You are making changes to: #{file2.highlight}
 
 EOF
 

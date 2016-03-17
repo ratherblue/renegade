@@ -23,6 +23,19 @@ module Renegade
       Status.report(@label, check_branch_name(branch_name), true)
     end
 
+    def self.extract_id(branch_name)
+      data = {}
+      if REGEX_STORY_BRANCH.match(branch_name)
+        data['type'] = 'story'
+        data['id'] = REGEX_STORY_BRANCH.match(branch_name)[1]
+      elsif REGEX_BUG_BRANCH.match(branch_name)
+        data['type'] = 'bug'
+        data['id'] = REGEX_BUG_BRANCH.match(branch_name)[1]
+      end
+
+      data
+    end
+
     def check_branch_name(branch_name)
       if REGEX_STORY_BRANCH.match(branch_name) ||
          REGEX_BUG_BRANCH.match(branch_name) ||

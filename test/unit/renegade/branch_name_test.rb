@@ -32,4 +32,16 @@ describe Renegade::BranchName do
     branch_check.warnings[1].must_equal('You may continue to develop in this '\
       'branch, but you will not be allowed to merge unless you rename it.')
   end
+
+  it 'should return the story or bug id' do
+    data = subject.extract_id('story-1234')
+
+    data['type'].must_equal('story')
+    data['id'].must_equal('1234')
+
+    data = subject.extract_id('bug-5555')
+
+    data['type'].must_equal('bug')
+    data['id'].must_equal('5555')
+  end
 end

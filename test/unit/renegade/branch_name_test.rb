@@ -43,5 +43,9 @@ describe Renegade::BranchName do
 
     data['type'].must_equal('bug')
     data['id'].must_equal('5555')
+
+    data = subject.extract_id('awrerw-5555')
+    data['type'].must_equal(nil)
+    data['id'].must_equal(nil)
   end
 end

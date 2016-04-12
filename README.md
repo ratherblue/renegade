@@ -21,7 +21,29 @@ Or install it yourself as:
 
 ## Usage
 
-@todo
+### Prepare Commit Message
+In your Git project, open `.git/hooks/` and create a file called `prepare-commit-msg` (no extension). Copy and paste the following code:
+
+```rb
+#!/usr/bin/env ruby
+
+require 'renegade/prepare_commit_msg'
+
+Renegade::PrepareCommitMsg.new(ARGV).run or exit 1
+```
+
+### Pre-commit
+In your Git project, open `.git/hooks/` and create a file called `pre-commit` (no extension). Copy and paste the following code:
+
+```rb
+require 'renegade/pre_commit'
+
+files = `git diff --cached --name-only --diff-filter=ACM`
+branch_name = `git name-rev --name-only HEAD`
+markers = `git diff-index --check --cached HEAD --`
+
+Renegade::PreCommit.new.run(files, branch_name, markers)
+```
 
 ## Development
 

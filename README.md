@@ -36,6 +36,8 @@ Renegade::PrepareCommitMsg.new(ARGV).run or exit 1
 In your Git project, open `.git/hooks/` and create a file called `pre-commit` (no extension). Copy and paste the following code:
 
 ```rb
+#!/usr/bin/env ruby
+
 require 'renegade/pre_commit'
 
 files = `git diff --cached --name-only --diff-filter=ACM`

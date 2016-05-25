@@ -3,7 +3,6 @@
 [![Build Status](https://img.shields.io/travis/ratherblue/renegade.svg?style=flat-square)](https://travis-ci.org/ratherblue/renegade)
 [![Coverage Status](https://img.shields.io/coveralls/ratherblue/renegade/master.svg?style=flat-square)](https://coveralls.io/r/ratherblue/renegade?branch=master)
 
-## Installation
 
 Add this line to your application's Gemfile:
 
